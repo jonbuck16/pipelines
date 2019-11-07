@@ -1,6 +1,6 @@
 node {
    	def mvnHome
-   	stage('Clone Application') { 
+   	stage('Clone API') { 
 		dir('Application') {
 			git(url:'$ApplicationGitUrl', credentialsId:'JonGithub')
      	}
@@ -8,14 +8,17 @@ node {
    	stage('Build API Sandbox') {
    		dir('ApiSandbox') {
    			git(url:'https://github.com/jonbuck16/api-sandbox.git', credentialsId:'JonGithub')
-      		// Run the maven build
       		mvnHome = tool 'M3'
 	      	withEnv(["MVN_HOME=$mvnHome"]) {
-	      		sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
+	      		sh '"$MVN_HOME/bin/mvn" -DskipTests clean package'
 	      	}
    		}
    	}
    	stage ('Create API Sandbox') {
+		dir('Application') {
+		    pom = readMavenPom file: 'pom.xml'
+		    
+		}
 
     }
 }
