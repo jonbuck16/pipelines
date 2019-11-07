@@ -17,7 +17,8 @@ node {
    	stage ('Create API Sandbox') {
 		dir('Application') {
 		    pom = readMavenPom file: 'pom.xml'
-		    
+		    echo(message: "${pom.artifactId}")
+
 		}
     }
 }
