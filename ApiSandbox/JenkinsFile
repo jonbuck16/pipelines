@@ -17,7 +17,7 @@ node {
    	stage ('Create API Sandbox') {
 		dir('Application') {
 		    pom = readMavenPom file: 'pom.xml'
-			sh "docker build --build-arg API_DEFINITION=../Application/${APIDefinitionPath} --build-arg JAR_FILE=./target/api-sandbox-1.0.0.jar -t hsbc/${pom.artifactId}:latest"
+			sh "docker build --build-arg API_DEFINITION=../Application/${APIDefinitionPath} --build-arg JAR_FILE=./target/api-sandbox-1.0.0.jar -t hsbc/${pom.artifactId}:latest ."
 		}
     }
 }
