@@ -2,7 +2,7 @@ node {
    	def mvnHome
    	stage('Clone Application') { 
 		dir('Application') {
-			git ${ApplicationGitUrl}
+			git(url:${ApplicationGitUrl})
      	}
    	}
    	stage('Build API Sandbox') {
