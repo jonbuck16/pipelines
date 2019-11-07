@@ -2,12 +2,12 @@ node {
    	def mvnHome
    	stage('Clone Application') { 
 		dir('Application') {
-			git(url:${ApplicationGitUrl})
+			git(url:'$ApplicationGitUrl')
      	}
    	}
    	stage('Build API Sandbox') {
    		dir('ApiSandbox') {
-   			git 'https://github.com/jonbuck16/api-sandbox.git'
+   			git(url:'https://github.com/jonbuck16/api-sandbox.git')
       		// Run the maven build
       		mvnHome = tool 'M3'
 	      	withEnv(["MVN_HOME=$mvnHome"]) {
