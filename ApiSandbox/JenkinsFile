@@ -18,6 +18,6 @@ node {
 		pom = readMavenPom file: './Application/pom.xml'
 		sh "docker build --build-arg API_DEFINITION=./Application/${APIDefinitionPath} --build-arg JAR_FILE=./ApiSandbox/target/api-sandbox-1.0.0.jar -t gcr.io/eep-api-sandbox/${pom.artifactId}:${pom.version} -f ApiSandbox/Dockerfile ."
 		sh "docker push gcr.io/eep-api-sandbox/${pom.artifactId}:${pom.version}"
-		sh "docker image rm ${pom.artifactId}:${pom.version}"
+		sh "docker image rm gcr.io/eep-api-sandbox/${pom.artifactId}:${pom.version}"
     }
 }
