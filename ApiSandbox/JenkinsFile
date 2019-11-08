@@ -1,11 +1,11 @@
 node {
    	def mvnHome
-   	stage('Clone API') { 
+   	stage('Clone API Project') { 
 		dir('Application') {
 			git(url:'$ApplicationGitUrl', credentialsId:'JonGithub')
      	}
    	}
-   	stage('Build API Sandbox') {
+   	stage('Build API-Sandbox Application') {
    		dir('ApiSandbox') {
    			git(url:'https://github.com/jonbuck16/api-sandbox.git', credentialsId:'JonGithub')
       		mvnHome = tool 'M3'
@@ -14,7 +14,7 @@ node {
 	      	}
    		}
    	}
-   	stage ('Create API Sandbox') {
+   	stage ('Create/Push API-Sandbox Image') {
 		pom = readMavenPom file: './Application/pom.xml'
 		sh "docker build --build-arg API_DEFINITION=./Application/${APIDefinitionPath} --build-arg JAR_FILE=./ApiSandbox/target/api-sandbox-1.0.0.jar -t gcr.io/eep-api-sandbox/${pom.artifactId}:${pom.version} -f ApiSandbox/Dockerfile ."
 		sh "docker push gcr.io/eep-api-sandbox/${pom.artifactId}:${pom.version}"
